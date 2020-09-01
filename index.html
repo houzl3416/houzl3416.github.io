@@ -145,6 +145,687 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/01/DATA-FILES/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/DATA-FILES/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-01 20:58:07 / Modified: 20:38:06" itemprop="dateCreated datePublished" datetime="2020-09-01T20:58:07+08:00">2020-09-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 align="center">数据文件</h1>
+
+<p>目前，通过 pull 或下载新的 release 版本来更新 NexT 主题的体验并不平滑。当用户使用 <code>git pull</code> 更新 NexT 主题时经常需要解决冲突问题，而在手动下载 release 版本时也经常需要手动合并配置。</p>
+<p>现在来说，NexT 推荐用户存储部分配置在 Hexo 站点配置文件（<code>/_config.yml</code>），而另一部分在主题配置文件（<code>/themes/next/_config.yml</code>）。这一方式固然可用，但也有一些缺点：</p>
+<ol>
+<li>配置项被分裂为两部分；</li>
+<li>用户难以弄清何处存放配置选项。</li>
+</ol>
+<p>为了解决这一问题，NexT 提供了以下两种方案。</p>
+<h2 align="center">选择 1：Hexo 方式</h2>
+
+<p>使用这一方式，你的全部配置都将置于 Hexo 站点配置文件（<code>/_config.yml</code>），并且不需要修改 <code>/themes/next/_config.yml</code>，或者创建什么其他的文件。但是所有用到的主题选项必须放置在 <code>theme_config</code> 后，并全部增加两个空格的缩进。</p>
+<p>如果在新的 release 中新增了选项，那么你只需要从 <code>/themes/next/_config.yml</code> 中将他们复制到 <code>/_config.yml</code> 中并将它们的值设置为你想要的。</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><ol>
+<li>请确认不存在 <code>/source/_data/next.yml</code> 文件（如果已存在，请删除）</li>
+<li>从主题的 <code>/themes/next/_config.yml</code> 文件中复制你需要的 NexT 配置项到 <code>/_config.yml</code> 中，然后<br>2.1. 所有这些配置项右移两个空格（在 Visual Studio Code 中：选中这些文字，<kbd>CTRL</kbd> + <kbd>]</kbd>）。<br>2.2. 在这些参数最上方添加一行 <code>theme_config:</code>。</li>
+</ol>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration.html">Hexo 配置</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/pull/757">Hexo Pull #757</a></li>
+</ul>
+<h2 align="center">选择 2: NexT 方式</h2>
+
+<p>使用这一方式，你现在可以将你的全部配置置于同一位置（<code>/source/_data/next.yml</code>），并且不需要修改 <code>/themes/next/_config.yml</code>。<br>但是可能无法让所有 Hexo 外部库都准确处理它们的附加选项（举个例子，<code>hexo-server</code> 模块只会从 Hexo 默认配置文件中读取选项）。</p>
+<p>如果在新的 release 中出现了任何新的选项，那么你只需要从 <code>/themes/next/_config.yml</code> 中将他们复制到 <code>/source/_data/next.yml</code> 中并设置它们的值为你想要的选项。</p>
+<p>这一方法依赖于 Hexo 的<a target="_blank" rel="noopener" href="https://hexo.io/docs/data-files.html">数据文件</a>特性。因为数据文件是在 Hexo 3 中被引入，所以你需要更新至 Hexo 3.0 以后的版本来使用这一特性。</p>
+<h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><ol>
+<li>请确认你的 Hexo 版本为 3.0 或更高。</li>
+<li>在你站点的 <code>/source/_data</code> 目录创建一个 <code>next.yml</code> 文件（如果 <code>_data</code> 目录不存在，请创建之）。</li>
+</ol>
+<p align="center">以上步骤之后有 <b>两种选择</b>，请<b>任选其一</b>然后<b>继续后面的步骤</b>。</p>
+
+<ul>
+<li><p><strong>选择 1：<code>override: false</code>（默认）</strong>：</p>
+<ol>
+<li>检查默认 NexT 配置中的 <code>override</code> 选项，必须设置为 <code>false</code>。<br>在 <code>next.yml</code> 文件中，也要设置为 <code>false</code>，或者不定义此选项。</li>
+<li>从站点配置文件（<code>/_config.yml</code>）与主题配置文件（<code>/themes/next/_config.yml</code>）中复制你需要的选项到 <code>/source/_data/next.yml</code> 中。</li>
+</ol>
+</li>
+<li><p>**选择 2：<code>override: true</code>**：</p>
+<ol>
+<li>在 <code>next.yml</code> 中设置 <code>override</code> 选项为 <code>true</code>。</li>
+<li>从 <code>/themes/next/_config.yml</code> 配置文件中复制<strong>所有</strong>的 NexT 主题选项到 <code>/source/_data/next.yml</code> 中。</li>
+</ol>
+</li>
+</ul>
+<ol start="3">
+<li>然后，在站点的 <code>/_config.yml</code> 中需要定义 <code>theme: next</code> 选项（如果需要的话，<code>source_dir: source</code>）。</li>
+<li>使用标准参数来启动服务器，生成或部署（<code>hexo clean &amp;&amp; hexo g -d &amp;&amp; hexo s</code>）。</li>
+</ol>
+<h3 id="相关链接-1"><a href="#相关链接-1" class="headerlink" title="相关链接"></a>相关链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next/issues/328">NexT Issue #328</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/01/ALGOLIA-SEARCH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/ALGOLIA-SEARCH/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-01 20:58:07 / Modified: 20:38:06" itemprop="dateCreated datePublished" datetime="2020-09-01T20:58:07+08:00">2020-09-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 align="center">Algolia 搜索</h1>
+
+<p>NexT 内部提供 Algolia 的搜索功能，要使用此功能请确保所使用的 NexT 版本在 <code>v5.1.0</code> 之后。需要注意的是，仅仅将 <code>next/_config.yml</code> 中 <code>algolia_search</code> 的 <code>enable</code> 打开<strong>并不能让你使用 Algolia 搜索</strong>，你还需要<strong>使用对应的 Hexo-Algolia 插件</strong> 才能真正在博客页面中使用 Algolia 搜索。按照下面介绍的步骤操作即可完成 Algolia 搜索的安装。</p>
+<ol>
+<li><p>前往 <a target="_blank" rel="noopener" href="https://www.algolia.com/">Algolia 注册页面</a>，注册一个新账户。 可以使用 GitHub 或者 Google 账户直接登录，注册后的 14 天内拥有所有功能（包括收费类别的）。之后若未续费会自动降级为免费账户，免费账户 总共有 10,000 条记录，每月有 100,000 的可以操作数。注册完成后，创建一个新的 Index，这个 Index 将在后面使用。</p>
+<p> <img src="https://user-images.githubusercontent.com/16272760/73673892-68a29b00-46ea-11ea-90c5-916b4b11fc7a.png"></p>
+</li>
+<li><p>在 <code>API Keys</code> 页面找到需要使用的一些配置的值，包括 <code>Application ID</code> 和 <code>Search-Only API Key</code>。注意，<code>Admin API Key</code> 需要保密保存，不要外泄。</p>
+<p> <img src="https://user-images.githubusercontent.com/16272760/73673895-693b3180-46ea-11ea-8f50-8bae850b50d0.png"></p>
+</li>
+<li><p>编辑 <code>站点配置文件</code>，新增以下配置，除了 <code>chunkSize</code> 字段，替换成在 Algolia 获取到的值：</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">algolia:</span></span><br><span class="line">  <span class="attr">applicationID:</span> <span class="string">&#x27;Application ID&#x27;</span></span><br><span class="line">  <span class="attr">apiKey:</span> <span class="string">&#x27;Search-Only API Key&#x27;</span></span><br><span class="line">  <span class="attr">indexName:</span> <span class="string">&#x27;indexName&#x27;</span></span><br><span class="line">  <span class="attr">chunkSize:</span> <span class="number">5000</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>API Keys</code> 页面，点击 <code>All API Keys</code> 切换到对应的页面中。接着点击 <code>New API Key</code> 按钮，来<strong>编辑权限</strong>。在弹出框中找到 ACL ，<strong>输入 addObject、 deleteObject、listIndexes、deleteIndex 权限</strong>，然后点击最下方的 <code>Create</code> 按钮。将这个新创建的 API Key 复制到剪贴板，我们称之为 <code>High-privilege API key</code>。</p>
+<p> <img src="https://user-images.githubusercontent.com/16272760/73673902-6b04f500-46ea-11ea-9c80-4e5c5002e07b.png"><br> <img src="https://user-images.githubusercontent.com/16272760/73673905-6b9d8b80-46ea-11ea-9e01-702ec2a8a297.png"></p>
+</li>
+<li><p>在 Index 和 API Key 创建完成后，此时这个 Index 里未包含任何数据。接下来需要安装 <a target="_blank" rel="noopener" href="https://github.com/oncletom/hexo-algolia">Hexo Algolia</a> 扩展，这个扩展的功能是搜集站点的内容并通过 API 发送给 Algolia。前往站点根目录，执行命令安装：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd hexo</span><br><span class="line">$ npm install hexo-algolia</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当配置完成，在站点根目录下执行以下命令来更新上传 Index。请注意观察命令的输出。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ export HEXO_ALGOLIA_INDEXING_KEY&#x3D;High-privilege API key # 使用 Git Bash</span><br><span class="line"># set HEXO_ALGOLIA_INDEXING_KEY&#x3D;High-privilege API key # 使用 Windows CMD 命令行</span><br><span class="line">$ hexo clean</span><br><span class="line">$ hexo algolia</span><br></pre></td></tr></table></figure>
+
+<p> <img src="http://theme-next.iissnan.com/uploads/algolia/algolia-step-4.png"></p>
+</li>
+<li><p>更改<code>主题配置文件</code>，找到 Algolia Search 配置部分，将 <code>enable</code> 改为 <code>true</code>。同时你需要<strong>关闭</strong>其他搜索插件，如 Local Search 等。你也可以根据需要调整 <code>labels</code> 中的文本：</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Algolia Search</span></span><br><span class="line"><span class="attr">algolia_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hits:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">input_placeholder:</span> <span class="string">Search</span> <span class="string">for</span> <span class="string">Posts</span></span><br><span class="line">    <span class="attr">hits_empty:</span> <span class="string">&quot;We didn&#x27;t find any results for the search: $&#123;query&#125;&quot;</span></span><br><span class="line">    <span class="attr">hits_stats:</span> <span class="string">&quot;$&#123;hits&#125; results found in $&#123;time&#125; ms&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果你需要通过 CDN 使用其它版本的 algolia-instant-search ，请根据以下步骤操作。</p>
+<p> 你需要在<code>主题配置文件</code>中的 vendors 字段进行设置：</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vendors:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="comment"># Algolia Search</span></span><br><span class="line">  <span class="comment"># algolia_search: //cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js</span></span><br><span class="line">  <span class="comment"># instant_search: //cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js</span></span><br><span class="line">  <span class="attr">algolia_search:</span> <span class="string">//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js</span></span><br><span class="line">  <span class="attr">instant_search:</span> <span class="string">//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js</span></span><br><span class="line">  <span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 align="center">已知的问题</h2>
+
+<ol>
+<li>考虑到 Algolia 免费账户的限制，目前 <a target="_blank" rel="noopener" href="https://github.com/oncletom/hexo-algolia">Hexo-Algolia</a> 插件最新版本去掉了正文索引功能。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-algoliasearch">Hexo-Algoliasearch</a> 插件提供了正文索引功能，不过需要替换 NEXT 主题中的关键字。对于免费账户，<code>Record Too Big</code> 的问题同样存在。<ul>
+<li>替换 <code>source/js/algolia-search.js</code> 中所有的 <code>applicationID</code> 为 <code>appId</code></li>
+<li>替换 <code>layout/_partials/head/head.swig</code> 中所有的 <code>applicationID</code> 为 <code>appId</code></li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/01/CONTRIBUTING/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/CONTRIBUTING/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-01 20:58:07 / Modified: 20:38:06" itemprop="dateCreated datePublished" datetime="2020-09-01T20:58:07+08:00">2020-09-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div align="right">
+  语言：
+  <a title="英语" href="../../.github/CONTRIBUTING.md">:us:</a>
+  :cn:
+  <a title="俄语" href="../ru/CONTRIBUTING.md">:ru:</a>
+</div>
+
+<h1 id="e-x-T"><a href="#e-x-T" class="headerlink" title=" e x T"></a><div align="center"><a title="Go to homepage" target="_blank" rel="noopener" href="https://theme-next.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div></h1><p>首先，非常感谢大家抽出宝贵时间来让我们的 NexT 主题越变越好。在这里，我们介绍一下 <a target="_blank" rel="noopener" href="https://github.com/theme-next">NexT 主题及其子模块</a> 的开源贡献指南。不过，我们希望大家不要局限于此，更欢迎大家随时进行补充。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="#%E5%A6%82%E4%BD%95%E4%B8%BA-next-%E5%81%9A%E8%B4%A1%E7%8C%AE">如何为 NexT 做贡献</a></p>
+<ul>
+<li><a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a><ul>
+<li><a href="#%E9%98%85%E8%AF%BB%E6%96%87%E6%A1%A3">阅读文档</a></li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97">快速调试指南</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%8D%E9%A6%88-bug">反馈 Bug</a><ul>
+<li><a href="#%E6%8F%90%E4%BA%A4%E6%BC%8F%E6%B4%9E">提交漏洞</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E5%8A%9F%E8%83%BD%E9%9C%80%E6%B1%82">提交功能需求</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E8%AF%B7%E6%B1%82">提交合并请求</a></li>
+<li><a href="#%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC">发布版本</a></li>
+</ul>
+<p><a href="#%E8%A7%84%E8%8C%83">规范</a></p>
+<ul>
+<li><a href="#%E8%A1%8C%E4%B8%BA%E8%A7%84%E8%8C%83">行为规范</a></li>
+<li><a href="#%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83">编码规范</a></li>
+<li><a href="#%E6%A0%87%E7%AD%BE%E8%A7%84%E8%8C%83">标签规范</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83">提交信息规范</a></li>
+</ul>
+<h2 id="如何为-NexT-做贡献"><a href="#如何为-NexT-做贡献" class="headerlink" title="如何为 NexT 做贡献"></a>如何为 NexT 做贡献</h2><h3 id="你需要了解的"><a href="#你需要了解的" class="headerlink" title="你需要了解的"></a>你需要了解的</h3><h4 id="阅读文档"><a href="#阅读文档" class="headerlink" title="阅读文档"></a>阅读文档</h4><p>如果你在使用过程中遇到了问题，你可以查阅 <a target="_blank" rel="noopener" href="https://theme-next.org/docs/faqs">FAQs</a> 或者 <a target="_blank" rel="noopener" href="https://theme-next.org/docs/troubleshooting">NexT 帮助文档</a>。</p>
+<p>另外，你也可以通过 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/search?q=&type=Issues&utf8=%E2%9C%93">这里</a> 进行大致检索，有些问题已经得到解答，你可以自行解决。对于没有解决的 Issue，你也可以继续提问。</p>
+<h4 id="快速调试指南"><a href="#快速调试指南" class="headerlink" title="快速调试指南"></a>快速调试指南</h4><p>在 GitHub 上提交 Issue 前，请先通过以下方法 debug：</p>
+<ul>
+<li>执行<code>hexo clean</code>，清除浏览器缓存，并禁用 CDN 服务（例如 Cloudflare Rocket Loader）；</li>
+<li>切换到其它主题并检查 bug 是否仍然存在（例如使用默认主题 landscape）。换言之，证明这是 NexT 主题而非来自 Hexo 的 bug；</li>
+<li>将 NexT 主题升级到最新版；</li>
+<li>将 Hexo 和 Hexo 插件升级到最新版；</li>
+<li>将 Node.js 和 <code>npm</code> 升级到最新版；</li>
+<li>卸载不必要的 Hexo 插件，或重新通过 <code>npm install --save</code> 安装插件。</li>
+</ul>
+<p>如果你得到了来自 Hexo 或浏览器控制台的报错信息，请在 Google / Stackoverflow / GitHub Issue 中搜寻，或在提交 Issue 时报告给我们。</p>
+<p>如果你在使用过程中发现了 Bug，请再次确认 Bug 在 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases/latest">最新发布版本</a> 中是否重现。如果 Bug 重现，欢迎你到我们的 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">主题仓库</a> 中 <a href="#reporting-bugs">反馈 Bug</a> 或者 <a href="#%E6%8F%90%E4%BA%A4%E5%8A%9F%E8%83%BD%E9%9C%80%E6%B1%82">提交功能需求</a>，也更期待您 <a href="#%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E8%AF%B7%E6%B1%82">提交合并请求</a>。</p>
+<h3 id="反馈-Bug"><a href="#反馈-Bug" class="headerlink" title="反馈 Bug"></a>反馈 Bug</h3><p>反馈 Bug 前，请再次确认您已经查看了 <a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a> 内容，避免提交重复的 Issue。确定相关仓库后，创建 Issue 并按照 <a href="../../.github/ISSUE_TEMPLATE.md">模板</a> 尽可能的详细填写相关信息。</p>
+<p>请认真遵守如下指南，这样我们才能更好地理解问题，重现问题和解决问题。</p>
+<ul>
+<li>在标题中清晰准确地描述你的问题。</li>
+<li>参照如下问题尽可能多的提供信息：<ul>
+<li>Bug 是否能够重现？是一直出现还是偶尔出现？</li>
+<li>Bug 是从什么时候开始发生的？</li>
+<li>如果 Bug 突然发生，使用 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases">旧版本主题</a> 是否能够重现 Bug？又是从哪个版本开始出现 Bug？</li>
+<li>你所使用 Node，Hexo 以及 Next 的版本号多少？你可以运行 <code>node -v</code> 和 <code>hexo version</code> 获取版本号，或者查看文件 <code>package.json</code> 的内容。</li>
+<li>你使用了哪些插件包？查看文件 <code>package.json</code> 的内容即可获取。</li>
+</ul>
+</li>
+<li>一步步详细你是如何重现 Bug 的，做了什么，使用了哪些功能等等。如果你需要展示代码段，请使用 <a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-and-highlighting-code-blocks/">Markdown 代码块</a> 或 <a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-a-permanent-link-to-a-code-snippet/">Github 预览链接</a> 或 <a target="_blank" rel="noopener" href="https://gist.github.com/">Gist 链接</a>。</li>
+<li>提供 Bug 的样例，如图像文件、在线演示网址等等。</li>
+<li>详细描述通过上述重现过程出现的问题。</li>
+<li>详细描述你期待的结果。</li>
+</ul>
+<h4 id="提交漏洞"><a href="#提交漏洞" class="headerlink" title="提交漏洞"></a>提交漏洞</h4><p>如果你发现安全问题，请以负责任的方式行事，即不要在公共 Issue 中提交而是直接向我们反馈，这样我们就可以在漏洞被利用之前对其进行修复。请将相关信息发送到 <a href="mailto:&#115;&#x65;&#x63;&#x75;&#114;&#105;&#116;&#121;&#x40;&#116;&#x68;&#x65;&#x6d;&#x65;&#45;&#x6e;&#101;&#120;&#x74;&#46;&#99;&#111;&#109;">&#115;&#x65;&#x63;&#x75;&#114;&#105;&#116;&#121;&#x40;&#116;&#x68;&#x65;&#x6d;&#x65;&#45;&#x6e;&#101;&#120;&#x74;&#46;&#99;&#111;&#109;</a>（可接受 PGP 加密邮件）。</p>
+<p>我们很乐意对任何提交漏洞的人予以特别感谢以便我们修复它。如果你想保持匿名性或使用笔名替代，请告诉我们。我们将充分尊重你的意愿。</p>
+<h3 id="提交功能需求"><a href="#提交功能需求" class="headerlink" title="提交功能需求"></a>提交功能需求</h3><p>提交功能需求前，请再次确认您已经查看了 <a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a> 内容，避免提交重复的 Issue。确定相关仓库后，创建 Issue 并按照 <a href="../../.github/ISSUE_TEMPLATE.md">模板</a> 尽可能的详细填写相关信息。</p>
+<p>请认真遵守如下指南，这样我们才能更好地理解和开发功能需求:pencil:：</p>
+<ul>
+<li>在标题中清晰准确地描述你的功能需求。</li>
+<li>详细描述目前所具有的功能和你所期待的功能，并解释为什么需要该功能。</li>
+<li>提供功能需求的样例，如图像文件、在线演示网址等等。</li>
+</ul>
+<h3 id="提交合并请求"><a href="#提交合并请求" class="headerlink" title="提交合并请求"></a>提交合并请求</h3><p>提交合并请求前，请再次确认您已经查看了 <a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a> 内容，避免提交重复的合并请求。确定相关仓库后，创建合并请求。更多详细操作过程可以查看 <a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-a-pull-request/">帮助文档</a>。</p>
+<p>请认真遵守如下指南，这样我们才能更好地理解你的合并请求：</p>
+<ul>
+<li>创建合并请求时，请遵守 <a href="#%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83">编码规范</a> 和 <a href="#%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83">提交信息规范</a>。</li>
+<li>在标题中清晰准确地描述你的合并请求，不要加入 Issue 编号。</li>
+<li>按照 <a href="../../.github/PULL_REQUEST_TEMPLATE.md">模板</a> 尽可能的详细填写相关信息。</li>
+<li>合并请求需要在所有主题样式中测试通过，并提供所表现功能的样例，如图像文件、在线演示网址等等。</li>
+</ul>
+<h3 id="发布版本"><a href="#发布版本" class="headerlink" title="发布版本"></a>发布版本</h3><p>版本发布是将项目发布给用户的一种很好的方式。</p>
+<ol>
+<li>进入 GitHub 项目主页，点击 <strong>Releases</strong> 和 <strong>Draft a new release</strong>。</li>
+<li>输入你需要发布的版本号。版本控制是基于 <a target="_blank" rel="noopener" href="https://git-scm.com/book/en/Git-Basics-Tagging">Git tags</a> 工作的，建议按照 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/issues/187">About Major and Minor NexT versions</a> 确定版本号。</li>
+<li>确定你需要发布的分支。除非发布测试版本，通常情况下选择 <code>master</code> 分支。</li>
+<li>输入发布版本的标题和说明。<ul>
+<li>标题为版本号。</li>
+<li>所有内容更改的类型包括了 <strong>Breaking Changes</strong>, <strong>Updates</strong>, <strong>Features</strong> 和 <strong>Bug Fixes</strong>。在描述 Breaking Changes 时，使用二级标题分别陈述，描述其他类型时，使用项目列表陈述。</li>
+<li>使用被动语态，省略主语。</li>
+<li>所有的变化都需要记录在版本说明中。对于没有使用 PR 的更改，需要添加相应的 commit 编号。如果使用了 PR 进行合并修改，则直接添加相应的 PR 编号即可。</li>
+</ul>
+</li>
+<li>如果您希望随版本一起发布二进制文件（如编译的程序），请在上传二进制文件对话框中手动拖放或选择文件。</li>
+<li>如果版本不稳定，请选择 <strong>This is a pre-release</strong>，以通知用户它尚未完全准备好。如果您准备公布您的版本，请点击 <strong>Publish release</strong>。否则，请单击 <strong>Save draft</strong> 以稍后处理。</li>
+</ol>
+<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><h3 id="行为规范"><a href="#行为规范" class="headerlink" title="行为规范"></a>行为规范</h3><p>为了保证本项目的顺利运作，所有参与人都需要遵守 <a href="CODE_OF_CONDUCT.md">行为规范</a>。</p>
+<h3 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h3><p>我们使用 ESLint 和 Stylint 来识别和报告 JavaScript 和 Stylus 中的模式，目的是使代码更加一致并避免错误。编码时应遵循这些规范。</p>
+<h3 id="标签规范"><a href="#标签规范" class="headerlink" title="标签规范"></a>标签规范</h3><p>为了方便维护人员和用户能够快速找到他们想要查看的问题，我们使用“标签”功能对 Pull requests 和 Issues 进行分类。</p>
+<p>如果您不确定某个标签的含义，或者不知道将哪些标签应用于 PR 或 issue，千万别错过这个。</p>
+<p>Issue 的标签：</p>
+<ul>
+<li>类型<ul>
+<li><code>Bug</code>: 检测到需要进行确认的 Bug</li>
+<li><code>Feature Request</code>: 提出了新功能请求的 Issue</li>
+<li><code>Question</code>: 提出疑问的 Issue</li>
+<li><code>Meta</code>: 表明使用条款变更的 Issue</li>
+<li><code>Support</code>: 被标记为支持请求的 Issue</li>
+<li><code>Polls</code>: 发起投票的 Issue</li>
+</ul>
+</li>
+<li>结果<ul>
+<li><code>Duplicate</code>: 重复提及的 Issue</li>
+<li><code>Irrelevant</code>: 与 NexT 主题无关的 Issue</li>
+<li><code>Invalid</code>: 无法复现的 Issue</li>
+<li><code>Expected Behavior</code>: 与预期行为相符的 Issue</li>
+<li><code>Need More Info</code>: 需要更多信息的 Issue</li>
+<li><code>Verified</code>: 已经被确认的 Issue</li>
+<li><code>Solved</code>: 已经解决的 Issue</li>
+<li><code>Backlog</code>: 待解决的 Issue</li>
+<li><code>Stale</code>: 由于长期无人回应被封存的 Issue</li>
+</ul>
+</li>
+</ul>
+<p>Pull Request 的标签：</p>
+<ul>
+<li><code>Breaking Change</code>: 产生重大变动的 Pull Request</li>
+<li><code>Bug Fix</code>: 修复相关 Bug 的 Pull Request</li>
+<li><code>New Feature</code>: 添加了新功能的 Pull Request</li>
+<li><code>Feature</code>: 为现有功能提供选项或加成的 Pull Request</li>
+<li><code>i18n</code>: 更新了翻译的 Pull Request</li>
+<li><code>Work in Progress</code>: 仍在进行改动和完善的 Pull Request</li>
+<li><code>Skip Release</code>: 无需在 Release Note 中展现的 Pull Request</li>
+</ul>
+<p>两者兼有：</p>
+<ul>
+<li><code>Roadmap</code>: 与 NexT 主题发展相关的 Issue 或者 Pull Request</li>
+<li><code>Help Wanted</code>: 需要帮助的 Issue 或者 Pull Request</li>
+<li><code>Discussion</code>: 需要进行讨论的 Issue 或者 Pull Request</li>
+<li><code>Improvement</code>: 需要改进的 Issue 或者改进了 NexT 主题的 Pull Request</li>
+<li><code>Performance</code>: 提出性能问题的 Issue 或者提高了 NexT 主题性能的 Pull Request</li>
+<li><code>Hexo</code>: 与 Hexo 和 Hexo 插件相关的 Issue 或者 Pull Request</li>
+<li><code>Template Engine</code>: 与模版引擎相关的 Issue 或者 Pull Request</li>
+<li><code>CSS</code>: 与 NexT 主题 CSS 文件相关的 Issue 或者 Pull Request</li>
+<li><code>Fonts</code>: 与 NexT 主题字体相关的 Issue 或者 Pull Request</li>
+<li><code>PJAX</code>: 与 PJAX 相关的 Issue 或者 Pull Request</li>
+<li><code>3rd Party Plugin</code>: 与第三方插件和服务相关的 Issue 或者 Pull Request</li>
+<li><code>Docs</code>: 与文档说明相关的 Issue 或者 Pull Request</li>
+<li><code>Configurations</code>: 与 NexT 主题设置相关的 Issue 或者 Pull Request</li>
+</ul>
+<h3 id="提交信息规范"><a href="#提交信息规范" class="headerlink" title="提交信息规范"></a>提交信息规范</h3><p>我们对项目的 git 提交信息格式进行统一格式约定，每条提交信息由 <code>type</code>+<code>subject</code> 组成，这将提升项目日志的可读性。</p>
+<ul>
+<li><code>type</code> 用于表述此次提交信息的意义，首写字母大写，包括但不局限于如下类型：<ul>
+<li><code>Build</code>：基础构建系统或依赖库的变化</li>
+<li><code>Ci</code>：CI 构建系统及其脚本变化</li>
+<li><code>Docs</code>：文档内容变化</li>
+<li><code>Feat</code>：新功能</li>
+<li><code>Fix</code>：Bug 修复</li>
+<li><code>Perf</code>：性能优化</li>
+<li><code>Refactor</code>：重构（即不是新增功能，也不是修改 Bug 的代码变动）</li>
+<li><code>Style</code>：格式（不影响代码运行的变动）</li>
+<li><code>Revert</code>：代码回滚</li>
+<li><code>Release</code>：版本发布</li>
+</ul>
+</li>
+<li><code>subject</code> 用于简要描述修改变更的内容，如 <code>Update code highlighting in readme.md</code>。<ul>
+<li>句尾不要使用符号。</li>
+<li>使用现在时、祈使句语气。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/01/CODE_OF_CONDUCT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/CODE_OF_CONDUCT/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-01 20:58:07 / Modified: 20:38:06" itemprop="dateCreated datePublished" datetime="2020-09-01T20:58:07+08:00">2020-09-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div align="right">
+  语言：
+  <a title="英语" href="../../.github/CODE_OF_CONDUCT.md">:us:</a>
+  :cn:
+  <a title="俄语" href="../ru/CODE_OF_CONDUCT.md">:ru:</a>
+</div>
+
+<h1 id="e-x-T"><a href="#e-x-T" class="headerlink" title=" e x T"></a><div align="center"><a title="Go to homepage" target="_blank" rel="noopener" href="https://theme-next.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div></h1><p><a target="_blank" rel="noopener" href="https://theme-next.org/">NexT</a> 是一个优雅而强大的 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>主题。在这里，您可以构建一个托管在 <a target="_blank" rel="noopener" href="https://pages.github.com/">GitHub Pages</a> 上的静态博客，分享您的生活，并与新朋友进行交流。</p>
+<p>参与者公约用来约束在 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">NexT</a> 社区中代码更新、问题交流、请求合并等行为。我们期望所有用户相互尊重，礼貌待人。任何违反这些规则的人都将不会被审核，并会在发现后立即被阻止和驱逐。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#%E6%88%91%E4%BB%AC%E7%9A%84%E4%BF%9D%E8%AF%81">我们的保证</a></li>
+<li><a href="#%E6%88%91%E4%BB%AC%E7%9A%84%E8%B4%A3%E4%BB%BB">我们的责任</a></li>
+<li><a href="#%E6%88%91%E4%BB%AC%E7%9A%84%E6%A0%87%E5%87%86">我们的标准</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4">使用范围</a></li>
+<li><a href="#%E5%BC%BA%E5%88%B6%E6%89%A7%E8%A1%8C">强制执行</a></li>
+<li><a href="#%E8%81%94%E7%B3%BB%E9%A1%B9%E7%9B%AE%E7%BB%B4%E6%8A%A4%E8%80%85">联系项目维护者</a></li>
+<li><a href="#%E6%9D%A5%E6%BA%90">来源</a></li>
+</ul>
+<h2 id="我们的保证"><a href="#我们的保证" class="headerlink" title="我们的保证"></a>我们的保证</h2><p>作为此项目的贡献者和维护者，我们承诺尊重所有做出贡献的用户，这些贡献包括了报告问题、发布功能请求、更新文档、提交合并请求以及其他活动。</p>
+<p>为了促进一个开放透明且友好的环境，我们作为贡献者和维护者保证：无论年龄、种族、民族、性别认同和表达（方式）、体型、身体健全与否、经验水平、国籍、个人表现、宗教或性别取向，参与者在我们项目和社区中都免于骚扰。</p>
+<h2 id="我们的责任"><a href="#我们的责任" class="headerlink" title="我们的责任"></a>我们的责任</h2><p>项目维护者有责任为「可接受的行为」标准做出诠释，有权利及责任去删除、编辑、拒绝与本行为标准有所违背的评论（comments）、提交（commits）、代码、wiki 编辑、问题（issues）和其他贡献，以及项目维护者可暂时或永久性的禁止任何他们认为有不适当、威胁、冒犯、有害行为的贡献者。</p>
+<h2 id="我们的标准"><a href="#我们的标准" class="headerlink" title="我们的标准"></a>我们的标准</h2><p>作为 GitHub 上的一个项目，本项目受到 <a target="_blank" rel="noopener" href="https://help.github.com/articles/github-community-guidelines/">GitHub 社区准则</a>的约束。 此外，作为 npm 托管的项目，<a target="_blank" rel="noopener" href="https://www.npmjs.com/policies/conduct">npm 公司的行为准则</a>也涵盖了本项目。</p>
+<p>有助于创造正面环境的行为包括但不限于：</p>
+<ul>
+<li>使用友好和包容性语言</li>
+<li>尊重不同的观点和经历</li>
+<li>耐心地接受建设性批评</li>
+<li>关注对社区最有利的事情</li>
+<li>友善对待其他社区成员</li>
+</ul>
+<p>身为参与者不能接受的行为包括但不限于：</p>
+<ul>
+<li>使用与性有关的言语或是图像，以及不受欢迎的性骚扰</li>
+<li>捣乱/煽动/造谣的行为或进行侮辱/贬损的评论，人身攻击及政治攻击</li>
+<li>公开或私下的骚扰</li>
+<li>未经许可地发布他人的个人资料，例如住址或是电子地址</li>
+<li>其他可以被合理地认定为不恰当或者违反职业操守的行为</li>
+</ul>
+<h2 id="使用范围"><a href="#使用范围" class="headerlink" title="使用范围"></a>使用范围</h2><p>当一个人代表该项目或是其社区时，本行为标准适用于其项目社区和公共社区。</p>
+<p>根据某人在本社区范围以外发生的违规情况，项目维护者可以认为其不受欢迎，并采取适当措施来保证所有成员的安全性和舒适性。</p>
+<h2 id="强制执行"><a href="#强制执行" class="headerlink" title="强制执行"></a>强制执行</h2><p>如果您看到违反行为准则的行为，请按以下步骤操作：</p>
+<ol>
+<li>让这个人知道他所做的并不合适，并要求他停止或编辑他们的提交信息。该人应立即停止行为并纠正问题。</li>
+<li>如果该人没有纠正其行为，或者您不方便与其沟通，请<a href="#%E8%81%94%E7%B3%BB%E9%A1%B9%E7%9B%AE%E7%BB%B4%E6%8A%A4%E8%80%85">联系项目维护者</a>。上报时，请尽可能多的提供详细信息，链接，截图，上下文或可用于更好地理解和解决情况的其他信息。</li>
+<li>收到上报信息后，项目维护者会查看问题，并采取进一步的措施。</li>
+</ol>
+<p>一旦项目维护者参与其中，他们将遵循以下一系列步骤，并尽力保护项目成员的利益。任何维护团队认为有必要且适合的所有投诉都将进行审查及调查，并做出相对应的回应。项目小组有对事件回报者有保密的义务。具体执行的方针近一步细节可能会单独公布。</p>
+<p>以下是项目维护者根据需要采取的进一步执法步骤：</p>
+<ol>
+<li>再次要求停止违规行为。</li>
+<li>如果违规者还是没有回应，将会受到正式的警告，并收到项目维护者的移除或修改消息。同时，相关的问题或合并请求将会被锁定。</li>
+<li>如果警告后违规行为继续出现，违规者将会被禁言 24 小时。</li>
+<li>如果禁言后违规行为继续出现，违规者将会被处罚长期（6-12个月）禁言。</li>
+</ol>
+<p>除此之外，项目维护者可以根据需要删除任何违规的消息，图片，贡献等。如果违规行为被认为是对社区成员的严重或直接威胁，包括任何置社区成员于风险的威胁、身体或言语攻击，项目维护者有充分权利自行决定跳过上述任何步骤。</p>
+<p>没有切实地遵守或是执行本行为标准的项目维护人员，可能会因项目领导人或是其他成员的决定，暂时或是永久地取消其参与资格。</p>
+<h2 id="联系项目维护者"><a href="#联系项目维护者" class="headerlink" title="联系项目维护者"></a>联系项目维护者</h2><p>您可以通过以下任何方法与维护人员联系</p>
+<ul>
+<li><p>电子邮件:</p>
+<ul>
+<li><a href="mailto:support@theme-next.org">support@theme-next.org</a></li>
+</ul>
+</li>
+<li><p>即时通信:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gitter.im/theme-next">Gitter</a></li>
+<li><a target="_blank" rel="noopener" href="https://riot.im/app/#/room/#NexT:matrix.org">Riot</a></li>
+<li><a target="_blank" rel="noopener" href="https://t.me/joinchat/GUNHXA-vZkgSMuimL1VmMw">Telegram</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>本行为标准改编自<a target="_blank" rel="noopener" href="https://www.contributor-covenant.org/">Contributor Covenant</a> 和 <a target="_blank" rel="noopener" href="https://wealljs.org/code-of-conduct">WeAllJS Code of Conduct</a>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/01/INSTALLATION/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/INSTALLATION/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-01 20:58:07 / Modified: 20:38:06" itemprop="dateCreated datePublished" datetime="2020-09-01T20:58:07+08:00">2020-09-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 align="center">安装</h1>
+
+<h2 align="center">步骤 1 &rarr; 进入 Hexo 目录</h2>
+
+<p>进入 <strong>Hexo 根</strong>目录。这一目录中应当有 <code>node_modules</code>、<code>source</code>、<code>themes</code> 等若干子目录：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> hexo</span><br><span class="line">$ ls</span><br><span class="line">_config.yml  node_modules  package.json  public  scaffolds  <span class="built_in">source</span>  themes</span><br></pre></td></tr></table></figure>
+
+<h2 align="center">步骤 2 &rarr; 获取 NexT</h2>
+
+<p align="center">从 GitHub 下载主题。<br>
+为了下载这一主题，共有 <b>3 种选项</b>可选。你需要选择其中<b>唯一一个方式</b>。</p>
+
+<h3 id="选项-1：下载最新-release-版本"><a href="#选项-1：下载最新-release-版本" class="headerlink" title="选项 1：下载最新 release 版本"></a>选项 1：下载<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases/latest">最新 release 版本</a></h3><p>   通常情况下请选择 <strong>stable</strong> 版本。推荐不熟悉的用户按此方式进行。</p>
+<ul>
+<li><p>使用 <a target="_blank" rel="noopener" href="http://lmgtfy.com/?q=linux+curl+tar+wget+install">curl、tar 和 wget</a> 安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -s https://api.github.com/repos/theme-next/hexo-theme-next/releases/latest | grep tarball_url | cut -d <span class="string">&#x27;&quot;&#x27;</span> -f 4 | wget -i - -O- | tar -zx -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure>
+<p>这种方式将<strong>仅提供最新的 release 版本</strong>（其中不附带 <code>.git</code> 目录）。<br>因此，将来你将不可能通过 <code>git</code> 更新这一方式安装的主题。<br>取而代之的，为了能不丢失你的自定义配置，你可以使用独立的配置文件（例如 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/zh-CN/DATA-FILES.md">数据文件</a>）并下载最新版本到旧版本的目录中（或者下载到新的主题目录中并修改 Hexo 配置中的主题名）。</p>
+</li>
+</ul>
+<h3 id="选项-2：下载-tag-指向的-release-版本"><a href="#选项-2：下载-tag-指向的-release-版本" class="headerlink" title="选项 2：下载 tag 指向的 release 版本"></a>选项 2：下载 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases">tag 指向的 release 版本</a></h3><p>   在少数情况下将有所帮助，但这并非推荐方式。<br>   你必须指定一个版本：使用 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/tags">tags 列表</a>中的任意 tag 替换 <code>v6.0.0</code>。</p>
+<ul>
+<li><p>方式 1：使用 <a target="_blank" rel="noopener" href="http://lmgtfy.com/?q=linux+curl+tar+install">curl 和 tar</a> 安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -L https://api.github.com/repos/theme-next/hexo-theme-next/tarball/v6.0.0 | tar -zxv -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure>
+<p>和上述的 <code>curl、tar 和 wget</code> 方法相同，但只会下载<strong>指定的 release 版本</strong>。</p>
+</li>
+<li><p>方式 2：使用 <a target="_blank" rel="noopener" href="http://lmgtfy.com/?q=linux+git+install">git</a> 安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> --branch v6.0.0 https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>这一方式将为你下载<strong>指定的 release 版本</strong>（其中包含 <code>.git</code> 目录）。<br>并且，你可以随时切换到任何已定义的版本号所对应的 tag 的版本。</p>
+</li>
+</ul>
+<h3 id="选项-3：下载最新-master-分支"><a href="#选项-3：下载最新-master-分支" class="headerlink" title="选项 3：下载最新 master 分支"></a>选项 3：下载<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/archive/master.zip">最新 master 分支</a></h3><p>   可能<strong>不稳定</strong>，但包含最新的特性。推荐进阶用户和开发者按此方式进行。</p>
+<ul>
+<li><p>方式 1：使用 <a target="_blank" rel="noopener" href="http://lmgtfy.com/?q=linux+curl+tar+install">curl 和 tar</a> 安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -L https://api.github.com/repos/theme-next/hexo-theme-next/tarball | tar -zxv -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure>
+<p>和上述的 <code>curl、tar 和 wget</code> 方法相同，但只会下载<strong>最新 master 分支版本</strong>。<br>在有些情况对开发者有所帮助。</p>
+</li>
+<li><p>方式 2：使用 <a target="_blank" rel="noopener" href="http://lmgtfy.com/?q=linux+git+install">git</a> 安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+
+<p>这一方式将为你下载<strong>完整仓库</strong>（其中包含 <code>.git</code> 目录）。<br>你可以随时<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/zh-CN/README.md#update">使用 git 更新至最新版本</a>并切换至任何有 tag 标记的 release 版本、最新的 master 分支版本、甚至其他分支。<br>在绝大多数情况下对用户和开发者友好。</p>
+<p>获取 tags 列表：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ git tag -l</span><br><span class="line">…</span><br><span class="line">v6.0.0</span><br><span class="line">v6.0.1</span><br><span class="line">v6.0.2</span><br></pre></td></tr></table></figure>
+
+<p>例如，假设你想要切换到 <code>v6.0.1</code> 这一 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/tags">tag 指向的 release 版本</a>。输入如下指令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout tags/v6.0.1</span><br><span class="line">Note: checking out <span class="string">&#x27;tags/v6.0.1&#x27;</span>.</span><br><span class="line">…</span><br><span class="line">HEAD is now at da9cdd2... Release v6.0.1</span><br></pre></td></tr></table></figure>
+
+<p>然后，假设你想要切换回 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/commits/master">master 分支</a>，输入如下指令即可：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 align="center">步骤 3 &rarr; 完成配置</h2>
+
+<p>在 <strong>Hexo 站点配置文件</strong>（<code>/_config.yml</code>）中设置你的主题：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/01/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -277,7 +958,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

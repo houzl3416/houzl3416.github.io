@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="语言：   :us:   :cn:   :ru:    e x T首先，非常感谢大家抽出宝贵时间来让我们的 NexT 主题越变越好。在这里，我们介绍一下 NexT 主题及其子模块 的开源贡献指南。不过，我们希望大家不要局限于此，更欢迎大家随时进行补充。 目录如何为 NexT 做贡献  你需要了解的 阅读文档 快速调试指南   反馈 Bug 提交漏洞   提交功能需求 提交合并请求 发布版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2020/09/01/CONTRIBUTING/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="语言：   :us:   :cn:   :ru:    e x T首先，非常感谢大家抽出宝贵时间来让我们的 NexT 主题越变越好。在这里，我们介绍一下 NexT 主题及其子模块 的开源贡献指南。不过，我们希望大家不要局限于此，更欢迎大家随时进行补充。 目录如何为 NexT 做贡献  你需要了解的 阅读文档 快速调试指南   反馈 Bug 提交漏洞   提交功能需求 提交合并请求 发布版本">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true">
+<meta property="article:published_time" content="2020-09-01T12:58:07.459Z">
+<meta property="article:modified_time" content="2020-09-01T12:38:06.388Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/01/CONTRIBUTING/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/01/CONTRIBUTING/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-01 20:58:07 / Modified: 20:38:06" itemprop="dateCreated datePublished" datetime="2020-09-01T20:58:07+08:00">2020-09-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div align="right">
+  语言：
+  <a title="英语" href="../../.github/CONTRIBUTING.md">:us:</a>
+  :cn:
+  <a title="俄语" href="../ru/CONTRIBUTING.md">:ru:</a>
+</div>
+
+<h1 id="e-x-T"><a href="#e-x-T" class="headerlink" title=" e x T"></a><div align="center"><a title="Go to homepage" target="_blank" rel="noopener" href="https://theme-next.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div></h1><p>首先，非常感谢大家抽出宝贵时间来让我们的 NexT 主题越变越好。在这里，我们介绍一下 <a target="_blank" rel="noopener" href="https://github.com/theme-next">NexT 主题及其子模块</a> 的开源贡献指南。不过，我们希望大家不要局限于此，更欢迎大家随时进行补充。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="#%E5%A6%82%E4%BD%95%E4%B8%BA-next-%E5%81%9A%E8%B4%A1%E7%8C%AE">如何为 NexT 做贡献</a></p>
+<ul>
+<li><a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a><ul>
+<li><a href="#%E9%98%85%E8%AF%BB%E6%96%87%E6%A1%A3">阅读文档</a></li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97">快速调试指南</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%8D%E9%A6%88-bug">反馈 Bug</a><ul>
+<li><a href="#%E6%8F%90%E4%BA%A4%E6%BC%8F%E6%B4%9E">提交漏洞</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E5%8A%9F%E8%83%BD%E9%9C%80%E6%B1%82">提交功能需求</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E8%AF%B7%E6%B1%82">提交合并请求</a></li>
+<li><a href="#%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC">发布版本</a></li>
+</ul>
+<p><a href="#%E8%A7%84%E8%8C%83">规范</a></p>
+<ul>
+<li><a href="#%E8%A1%8C%E4%B8%BA%E8%A7%84%E8%8C%83">行为规范</a></li>
+<li><a href="#%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83">编码规范</a></li>
+<li><a href="#%E6%A0%87%E7%AD%BE%E8%A7%84%E8%8C%83">标签规范</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83">提交信息规范</a></li>
+</ul>
+<h2 id="如何为-NexT-做贡献"><a href="#如何为-NexT-做贡献" class="headerlink" title="如何为 NexT 做贡献"></a>如何为 NexT 做贡献</h2><h3 id="你需要了解的"><a href="#你需要了解的" class="headerlink" title="你需要了解的"></a>你需要了解的</h3><h4 id="阅读文档"><a href="#阅读文档" class="headerlink" title="阅读文档"></a>阅读文档</h4><p>如果你在使用过程中遇到了问题，你可以查阅 <a target="_blank" rel="noopener" href="https://theme-next.org/docs/faqs">FAQs</a> 或者 <a target="_blank" rel="noopener" href="https://theme-next.org/docs/troubleshooting">NexT 帮助文档</a>。</p>
+<p>另外，你也可以通过 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/search?q=&type=Issues&utf8=%E2%9C%93">这里</a> 进行大致检索，有些问题已经得到解答，你可以自行解决。对于没有解决的 Issue，你也可以继续提问。</p>
+<h4 id="快速调试指南"><a href="#快速调试指南" class="headerlink" title="快速调试指南"></a>快速调试指南</h4><p>在 GitHub 上提交 Issue 前，请先通过以下方法 debug：</p>
+<ul>
+<li>执行<code>hexo clean</code>，清除浏览器缓存，并禁用 CDN 服务（例如 Cloudflare Rocket Loader）；</li>
+<li>切换到其它主题并检查 bug 是否仍然存在（例如使用默认主题 landscape）。换言之，证明这是 NexT 主题而非来自 Hexo 的 bug；</li>
+<li>将 NexT 主题升级到最新版；</li>
+<li>将 Hexo 和 Hexo 插件升级到最新版；</li>
+<li>将 Node.js 和 <code>npm</code> 升级到最新版；</li>
+<li>卸载不必要的 Hexo 插件，或重新通过 <code>npm install --save</code> 安装插件。</li>
+</ul>
+<p>如果你得到了来自 Hexo 或浏览器控制台的报错信息，请在 Google / Stackoverflow / GitHub Issue 中搜寻，或在提交 Issue 时报告给我们。</p>
+<p>如果你在使用过程中发现了 Bug，请再次确认 Bug 在 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases/latest">最新发布版本</a> 中是否重现。如果 Bug 重现，欢迎你到我们的 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next">主题仓库</a> 中 <a href="#reporting-bugs">反馈 Bug</a> 或者 <a href="#%E6%8F%90%E4%BA%A4%E5%8A%9F%E8%83%BD%E9%9C%80%E6%B1%82">提交功能需求</a>，也更期待您 <a href="#%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E8%AF%B7%E6%B1%82">提交合并请求</a>。</p>
+<h3 id="反馈-Bug"><a href="#反馈-Bug" class="headerlink" title="反馈 Bug"></a>反馈 Bug</h3><p>反馈 Bug 前，请再次确认您已经查看了 <a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a> 内容，避免提交重复的 Issue。确定相关仓库后，创建 Issue 并按照 <a href="../../.github/ISSUE_TEMPLATE.md">模板</a> 尽可能的详细填写相关信息。</p>
+<p>请认真遵守如下指南，这样我们才能更好地理解问题，重现问题和解决问题。</p>
+<ul>
+<li>在标题中清晰准确地描述你的问题。</li>
+<li>参照如下问题尽可能多的提供信息：<ul>
+<li>Bug 是否能够重现？是一直出现还是偶尔出现？</li>
+<li>Bug 是从什么时候开始发生的？</li>
+<li>如果 Bug 突然发生，使用 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases">旧版本主题</a> 是否能够重现 Bug？又是从哪个版本开始出现 Bug？</li>
+<li>你所使用 Node，Hexo 以及 Next 的版本号多少？你可以运行 <code>node -v</code> 和 <code>hexo version</code> 获取版本号，或者查看文件 <code>package.json</code> 的内容。</li>
+<li>你使用了哪些插件包？查看文件 <code>package.json</code> 的内容即可获取。</li>
+</ul>
+</li>
+<li>一步步详细你是如何重现 Bug 的，做了什么，使用了哪些功能等等。如果你需要展示代码段，请使用 <a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-and-highlighting-code-blocks/">Markdown 代码块</a> 或 <a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-a-permanent-link-to-a-code-snippet/">Github 预览链接</a> 或 <a target="_blank" rel="noopener" href="https://gist.github.com/">Gist 链接</a>。</li>
+<li>提供 Bug 的样例，如图像文件、在线演示网址等等。</li>
+<li>详细描述通过上述重现过程出现的问题。</li>
+<li>详细描述你期待的结果。</li>
+</ul>
+<h4 id="提交漏洞"><a href="#提交漏洞" class="headerlink" title="提交漏洞"></a>提交漏洞</h4><p>如果你发现安全问题，请以负责任的方式行事，即不要在公共 Issue 中提交而是直接向我们反馈，这样我们就可以在漏洞被利用之前对其进行修复。请将相关信息发送到 <a href="mailto:&#115;&#x65;&#x63;&#x75;&#114;&#105;&#116;&#121;&#x40;&#116;&#x68;&#x65;&#x6d;&#x65;&#45;&#x6e;&#101;&#120;&#x74;&#46;&#99;&#111;&#109;">&#115;&#x65;&#x63;&#x75;&#114;&#105;&#116;&#121;&#x40;&#116;&#x68;&#x65;&#x6d;&#x65;&#45;&#x6e;&#101;&#120;&#x74;&#46;&#99;&#111;&#109;</a>（可接受 PGP 加密邮件）。</p>
+<p>我们很乐意对任何提交漏洞的人予以特别感谢以便我们修复它。如果你想保持匿名性或使用笔名替代，请告诉我们。我们将充分尊重你的意愿。</p>
+<h3 id="提交功能需求"><a href="#提交功能需求" class="headerlink" title="提交功能需求"></a>提交功能需求</h3><p>提交功能需求前，请再次确认您已经查看了 <a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a> 内容，避免提交重复的 Issue。确定相关仓库后，创建 Issue 并按照 <a href="../../.github/ISSUE_TEMPLATE.md">模板</a> 尽可能的详细填写相关信息。</p>
+<p>请认真遵守如下指南，这样我们才能更好地理解和开发功能需求:pencil:：</p>
+<ul>
+<li>在标题中清晰准确地描述你的功能需求。</li>
+<li>详细描述目前所具有的功能和你所期待的功能，并解释为什么需要该功能。</li>
+<li>提供功能需求的样例，如图像文件、在线演示网址等等。</li>
+</ul>
+<h3 id="提交合并请求"><a href="#提交合并请求" class="headerlink" title="提交合并请求"></a>提交合并请求</h3><p>提交合并请求前，请再次确认您已经查看了 <a href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84">你需要了解的</a> 内容，避免提交重复的合并请求。确定相关仓库后，创建合并请求。更多详细操作过程可以查看 <a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-a-pull-request/">帮助文档</a>。</p>
+<p>请认真遵守如下指南，这样我们才能更好地理解你的合并请求：</p>
+<ul>
+<li>创建合并请求时，请遵守 <a href="#%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83">编码规范</a> 和 <a href="#%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83">提交信息规范</a>。</li>
+<li>在标题中清晰准确地描述你的合并请求，不要加入 Issue 编号。</li>
+<li>按照 <a href="../../.github/PULL_REQUEST_TEMPLATE.md">模板</a> 尽可能的详细填写相关信息。</li>
+<li>合并请求需要在所有主题样式中测试通过，并提供所表现功能的样例，如图像文件、在线演示网址等等。</li>
+</ul>
+<h3 id="发布版本"><a href="#发布版本" class="headerlink" title="发布版本"></a>发布版本</h3><p>版本发布是将项目发布给用户的一种很好的方式。</p>
+<ol>
+<li>进入 GitHub 项目主页，点击 <strong>Releases</strong> 和 <strong>Draft a new release</strong>。</li>
+<li>输入你需要发布的版本号。版本控制是基于 <a target="_blank" rel="noopener" href="https://git-scm.com/book/en/Git-Basics-Tagging">Git tags</a> 工作的，建议按照 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/issues/187">About Major and Minor NexT versions</a> 确定版本号。</li>
+<li>确定你需要发布的分支。除非发布测试版本，通常情况下选择 <code>master</code> 分支。</li>
+<li>输入发布版本的标题和说明。<ul>
+<li>标题为版本号。</li>
+<li>所有内容更改的类型包括了 <strong>Breaking Changes</strong>, <strong>Updates</strong>, <strong>Features</strong> 和 <strong>Bug Fixes</strong>。在描述 Breaking Changes 时，使用二级标题分别陈述，描述其他类型时，使用项目列表陈述。</li>
+<li>使用被动语态，省略主语。</li>
+<li>所有的变化都需要记录在版本说明中。对于没有使用 PR 的更改，需要添加相应的 commit 编号。如果使用了 PR 进行合并修改，则直接添加相应的 PR 编号即可。</li>
+</ul>
+</li>
+<li>如果您希望随版本一起发布二进制文件（如编译的程序），请在上传二进制文件对话框中手动拖放或选择文件。</li>
+<li>如果版本不稳定，请选择 <strong>This is a pre-release</strong>，以通知用户它尚未完全准备好。如果您准备公布您的版本，请点击 <strong>Publish release</strong>。否则，请单击 <strong>Save draft</strong> 以稍后处理。</li>
+</ol>
+<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><h3 id="行为规范"><a href="#行为规范" class="headerlink" title="行为规范"></a>行为规范</h3><p>为了保证本项目的顺利运作，所有参与人都需要遵守 <a href="CODE_OF_CONDUCT.md">行为规范</a>。</p>
+<h3 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h3><p>我们使用 ESLint 和 Stylint 来识别和报告 JavaScript 和 Stylus 中的模式，目的是使代码更加一致并避免错误。编码时应遵循这些规范。</p>
+<h3 id="标签规范"><a href="#标签规范" class="headerlink" title="标签规范"></a>标签规范</h3><p>为了方便维护人员和用户能够快速找到他们想要查看的问题，我们使用“标签”功能对 Pull requests 和 Issues 进行分类。</p>
+<p>如果您不确定某个标签的含义，或者不知道将哪些标签应用于 PR 或 issue，千万别错过这个。</p>
+<p>Issue 的标签：</p>
+<ul>
+<li>类型<ul>
+<li><code>Bug</code>: 检测到需要进行确认的 Bug</li>
+<li><code>Feature Request</code>: 提出了新功能请求的 Issue</li>
+<li><code>Question</code>: 提出疑问的 Issue</li>
+<li><code>Meta</code>: 表明使用条款变更的 Issue</li>
+<li><code>Support</code>: 被标记为支持请求的 Issue</li>
+<li><code>Polls</code>: 发起投票的 Issue</li>
+</ul>
+</li>
+<li>结果<ul>
+<li><code>Duplicate</code>: 重复提及的 Issue</li>
+<li><code>Irrelevant</code>: 与 NexT 主题无关的 Issue</li>
+<li><code>Invalid</code>: 无法复现的 Issue</li>
+<li><code>Expected Behavior</code>: 与预期行为相符的 Issue</li>
+<li><code>Need More Info</code>: 需要更多信息的 Issue</li>
+<li><code>Verified</code>: 已经被确认的 Issue</li>
+<li><code>Solved</code>: 已经解决的 Issue</li>
+<li><code>Backlog</code>: 待解决的 Issue</li>
+<li><code>Stale</code>: 由于长期无人回应被封存的 Issue</li>
+</ul>
+</li>
+</ul>
+<p>Pull Request 的标签：</p>
+<ul>
+<li><code>Breaking Change</code>: 产生重大变动的 Pull Request</li>
+<li><code>Bug Fix</code>: 修复相关 Bug 的 Pull Request</li>
+<li><code>New Feature</code>: 添加了新功能的 Pull Request</li>
+<li><code>Feature</code>: 为现有功能提供选项或加成的 Pull Request</li>
+<li><code>i18n</code>: 更新了翻译的 Pull Request</li>
+<li><code>Work in Progress</code>: 仍在进行改动和完善的 Pull Request</li>
+<li><code>Skip Release</code>: 无需在 Release Note 中展现的 Pull Request</li>
+</ul>
+<p>两者兼有：</p>
+<ul>
+<li><code>Roadmap</code>: 与 NexT 主题发展相关的 Issue 或者 Pull Request</li>
+<li><code>Help Wanted</code>: 需要帮助的 Issue 或者 Pull Request</li>
+<li><code>Discussion</code>: 需要进行讨论的 Issue 或者 Pull Request</li>
+<li><code>Improvement</code>: 需要改进的 Issue 或者改进了 NexT 主题的 Pull Request</li>
+<li><code>Performance</code>: 提出性能问题的 Issue 或者提高了 NexT 主题性能的 Pull Request</li>
+<li><code>Hexo</code>: 与 Hexo 和 Hexo 插件相关的 Issue 或者 Pull Request</li>
+<li><code>Template Engine</code>: 与模版引擎相关的 Issue 或者 Pull Request</li>
+<li><code>CSS</code>: 与 NexT 主题 CSS 文件相关的 Issue 或者 Pull Request</li>
+<li><code>Fonts</code>: 与 NexT 主题字体相关的 Issue 或者 Pull Request</li>
+<li><code>PJAX</code>: 与 PJAX 相关的 Issue 或者 Pull Request</li>
+<li><code>3rd Party Plugin</code>: 与第三方插件和服务相关的 Issue 或者 Pull Request</li>
+<li><code>Docs</code>: 与文档说明相关的 Issue 或者 Pull Request</li>
+<li><code>Configurations</code>: 与 NexT 主题设置相关的 Issue 或者 Pull Request</li>
+</ul>
+<h3 id="提交信息规范"><a href="#提交信息规范" class="headerlink" title="提交信息规范"></a>提交信息规范</h3><p>我们对项目的 git 提交信息格式进行统一格式约定，每条提交信息由 <code>type</code>+<code>subject</code> 组成，这将提升项目日志的可读性。</p>
+<ul>
+<li><code>type</code> 用于表述此次提交信息的意义，首写字母大写，包括但不局限于如下类型：<ul>
+<li><code>Build</code>：基础构建系统或依赖库的变化</li>
+<li><code>Ci</code>：CI 构建系统及其脚本变化</li>
+<li><code>Docs</code>：文档内容变化</li>
+<li><code>Feat</code>：新功能</li>
+<li><code>Fix</code>：Bug 修复</li>
+<li><code>Perf</code>：性能优化</li>
+<li><code>Refactor</code>：重构（即不是新增功能，也不是修改 Bug 的代码变动）</li>
+<li><code>Style</code>：格式（不影响代码运行的变动）</li>
+<li><code>Revert</code>：代码回滚</li>
+<li><code>Release</code>：版本发布</li>
+</ul>
+</li>
+<li><code>subject</code> 用于简要描述修改变更的内容，如 <code>Update code highlighting in readme.md</code>。<ul>
+<li>句尾不要使用符号。</li>
+<li>使用现在时、祈使句语气。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/01/CODE_OF_CONDUCT/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/01/ALGOLIA-SEARCH/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#e-x-T"><span class="nav-number">1.</span> <span class="nav-text"> e x T</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%B8%BA-NexT-%E5%81%9A%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.2.</span> <span class="nav-text">如何为 NexT 做贡献</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">你需要了解的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%85%E8%AF%BB%E6%96%87%E6%A1%A3"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">阅读文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">快速调试指南</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E9%A6%88-Bug"><span class="nav-number">1.2.2.</span> <span class="nav-text">反馈 Bug</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">提交漏洞</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E5%8A%9F%E8%83%BD%E9%9C%80%E6%B1%82"><span class="nav-number">1.2.3.</span> <span class="nav-text">提交功能需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E5%90%88%E5%B9%B6%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.4.</span> <span class="nav-text">提交合并请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.5.</span> <span class="nav-text">发布版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E8%8C%83"><span class="nav-number">1.3.</span> <span class="nav-text">规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E8%A7%84%E8%8C%83"><span class="nav-number">1.3.1.</span> <span class="nav-text">行为规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-number">1.3.2.</span> <span class="nav-text">编码规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E8%A7%84%E8%8C%83"><span class="nav-number">1.3.3.</span> <span class="nav-text">标签规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83"><span class="nav-number">1.3.4.</span> <span class="nav-text">提交信息规范</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
